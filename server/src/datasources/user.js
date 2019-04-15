@@ -33,9 +33,7 @@ class UserAPI extends DataSource {
       } else if (docs.length !== 0) {
         return docs[0]
       } else {
-        let user = new this.store.User({
-          email
-        })
+        let user = new this.store.User({ email })
         let savedUser = await user.save().then(() => console.log('saved new user'))
         return savedUser
       }
@@ -45,6 +43,16 @@ class UserAPI extends DataSource {
     
   }
 
+  // Queries
+  async getAddresses() {
+    const userId = this.context.user && this.context.user._id 
+     ? this.context.user._id
+     : 0
+    const addresses = await this.store.Address.where({ userId }).find().exec()
+    return addresses
+  }
+
+  // Mutations
   async addAddress({ address, kind }) {
     const userId = this.context.user._id;
     const newAddress = new this.store.Address(
@@ -67,12 +75,6 @@ class UserAPI extends DataSource {
         { "$pull": { addresses: address }}).exec()
     }
     return removedAddress.deletedCount === 1
-  }
-
-  async getAddresses() {
-    const userId = this.context.user._id
-    const addresses = await this.store.Address.where({ userId }).find().exec()
-    return addresses
   }
 
 }

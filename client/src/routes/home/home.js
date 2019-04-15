@@ -22,7 +22,7 @@ class Home extends React.Component {
     const { classes } = this.props
     console.log(this.props)
     return (
-      <React.Fragment >
+      <div >
         <Grid 
           container 
           className={classes.root}
@@ -34,7 +34,7 @@ class Home extends React.Component {
           <GetAllAddresses />
 
         </Grid>
-      </React.Fragment>
+      </div>
     )
   }
 }

@@ -6,6 +6,7 @@ import theme from '../theme/muiTheme'
 
 import Home from './home'
 import NotFound from './notFound'
+import Login from './login'
 
 class AppRouter extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class AppRouter extends React.Component {
           <Router>
             <Switch>
               <Route exact path='/' component={Home} />
+              <Route exact path='/login' component={Login} />
               <Route exact component={NotFound} />
             </Switch>
           </Router>

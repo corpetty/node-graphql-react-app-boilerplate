@@ -6,6 +6,7 @@ import gql from 'graphql-tag'
 import { ApolloProvider, Query } from 'react-apollo'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { typeDefs } from './resolvers'
+import { Redirect } from 'react-router-dom'
 
 import AppRouter from './routes'
 import Login from './routes/login'
@@ -31,19 +32,12 @@ cache.writeData({
   }
 })
 
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`
-
 ReactDOM.render(
   
     <ApolloProvider client={client}>
-      <Query query={IS_LOGGED_IN}>
-        {({data}) => (data.isLoggedIn ? <AppRouter /> : <Login /> )}
-      </Query>
-    
+     
+       <AppRouter />}
+      
     </ApolloProvider>,
   document.getElementById('app')
 )
