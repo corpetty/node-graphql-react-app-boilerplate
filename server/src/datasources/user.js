@@ -31,7 +31,6 @@ class UserAPI extends DataSource {
       if (err) {
         console.log("Error", err)
       } else if (docs.length !== 0) {
-        console.log("User exists already", docs)
         return docs[0]
       } else {
         let user = new this.store.User({
