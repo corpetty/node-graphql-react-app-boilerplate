@@ -17,8 +17,12 @@ module.exports = {
       const user = await dataSources.userAPI.findOrCreateUser({ email })
       if (user) return new Buffer(email).toString('base64')
     },
-    addAddress: async (_, { address, kind }, { dataSources }) => {
-      const res = await dataSources.userAPI.addAddress({ address, kind })
+    addAddress: async (_, { address, kind, tag }, { dataSources }) => {
+      // NOTE: this balance does not update yet.
+      let balance = await dataSources.etherscanAPI.getBalance(address)
+      balance = parseFloat(balance) / 1e18
+      const res = await dataSources.userAPI.addAddress({ address, kind, tag, balance })
+      
       return res
     },
     deleteAddress: async (_, { address }, { dataSources }) => {

@@ -4,10 +4,11 @@ import gql from 'graphql-tag'
 import { Button } from '@material-ui/core'
 
 const ADD_ADDRESS = gql`
-  mutation AddAddress($address: String!, $kind: String!) {
-    addAddress(address: $address, kind: $kind) {
+  mutation AddAddress($address: String!, $kind: String!, $tag: String) {
+    addAddress(address: $address, kind: $kind, tag: $tag) {
       address
       kind
+      tag
     }
   }
 `
@@ -16,18 +17,21 @@ const GET_ADDRESSES = gql`
     getAddresses {
       address
       kind
+      tag
+      balance
     }
   }
 `
 
 // TODO: Need to make `kind` default to nothing, and verify upon mutation that it is either or
-export default function AddAddressButton ({ isEmptyAddress, isValidAddress, address, kind }) {
+export default function AddAddressButton ({ isEmptyAddress, isValidAddress, address, kind, tag }) {
     return (
       <Mutation 
         mutation={ADD_ADDRESS}
         variables={{ 
           address: address,
-          kind: kind }}
+          kind: kind,
+          tag: tag }}
         refetchQueries={[ 
           {
             query: GET_ADDRESSES 
@@ -48,7 +52,7 @@ export default function AddAddressButton ({ isEmptyAddress, isValidAddress, addr
                 {isValidAddress
                   ? 'Add Address'
                   : isEmptyAddress 
-                   ? 'Enter ETH Address'
+                   ? 'No Address Entered'
                    : 'Bad Address'}
               </Button>
             </div>

@@ -8,6 +8,7 @@ const resolvers = require('./resolvers');
 const { createStore } = require('./utils');
 
 const UserAPI = require('./datasources/user');
+const EtherscanAPI = require('./datasources/etherscan')
 
 // const internalEngineDemo = require('./engine-demo');
 
@@ -17,6 +18,7 @@ const store = createStore();
 // set up any dataSources our resolvers need
 const dataSources = () => ({
   userAPI: new UserAPI({ store }),
+  etherscanAPI: new EtherscanAPI(),
 });
 
 // the function that sets up the global context for each resolver, using the req
@@ -68,6 +70,7 @@ module.exports = {
   resolvers,
   ApolloServer,
   UserAPI,
+  EtherscanAPI,
   store,
   server,
 };

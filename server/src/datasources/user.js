@@ -53,10 +53,10 @@ class UserAPI extends DataSource {
   }
 
   // Mutations
-  async addAddress({ address, kind }) {
+  async addAddress({ address, kind, tag, balance }) {
     const userId = this.context.user._id;
     const newAddress = new this.store.Address(
-      { address, kind, userId }
+      { address, kind, tag, balance, userId }
     )
     await newAddress.save()
       .then((doc) => {

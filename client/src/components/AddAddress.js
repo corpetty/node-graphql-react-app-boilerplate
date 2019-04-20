@@ -34,16 +34,23 @@ class AddAddress extends React.Component {
       isValidAddress: false,
       isEmptyAddress: true,
       kind: 'user',
+      tag: '',
     }
   }
 
   onInputChange = (event) => {
+    let isValidAddress = false
+    let isEmptyAddress = true
+    if (event.target.name === 'address') {
+      isValidAddress = isAddress(event.target.value)
+      isEmptyAddress = event.target.value === '' 
+        ? true
+        : false
+    } 
     this.setState({
       [event.target.name]: event.target.value,
-      isValidAddress: isAddress(event.target.value),
-      isEmptyAddress: event.target.value === '' 
-      ? true
-      : false,
+      isValidAddress,
+      isEmptyAddress,
     })
   }
 
@@ -60,7 +67,14 @@ class AddAddress extends React.Component {
         <Typography variant="h4">Add an address to monitor</Typography>
         <Input 
           className={classes.input}
-          placeholder={'add Ethereum address'} 
+          placeholder={'add a descriptive tag'} 
+          name='tag'  
+          fullWidth={true}
+          onChange={this.onInputChange}
+        />
+        <Input 
+          className={classes.input}
+          placeholder={'add an Ethereum address'} 
           name='address'  
           fullWidth={true}
           onChange={this.onInputChange}

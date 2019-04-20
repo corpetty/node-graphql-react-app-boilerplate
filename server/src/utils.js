@@ -69,7 +69,8 @@ module.exports.createStore = () => {
     userId: {
       type: Schema.Types.ObjectId,
       required: true,
-    }
+    },
+    tag: Schema.Types.String,
   })
 
 

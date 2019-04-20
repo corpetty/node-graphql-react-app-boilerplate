@@ -8,7 +8,7 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!): String!
-    addAddress(address: String!, kind: String!): Address
+    addAddress(address: String!, kind: String!, tag: String): Address
     deleteAddress(address: String!): Boolean
   }
 
@@ -24,6 +24,7 @@ const typeDefs = gql`
     kind: String!
     balance: Float 
     userId: ID!
+    tag: String
   }
 
   type AddressUpdateResponse {
